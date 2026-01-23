@@ -1,0 +1,207 @@
+@font-face {
+  font-family: "Astronomicon";
+  src: url("./assets/Astronomicon.ttf") format("truetype");
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: white;
+}
+
+.diagram {
+  height: 100vh;
+  width: 100vw;
+}
+
+.diagram > svg {
+  height: 100%;
+  width: 100%;
+}
+
+.sephirah {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.sephirah.hovered {
+  stroke-width: 3;
+}
+
+.sephirah.selected {
+  fill: black;
+}
+
+.sephirah.sephirah-selected {
+  fill: black;
+}
+
+.path-border {
+  stroke: black;
+  stroke-width: 12;
+  cursor: pointer;
+}
+
+.path-fill {
+  stroke: white;
+  stroke-width: 8;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.path-fill.path-fill-selected {
+  stroke: black;
+}
+
+.path-letter-bg {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.path-letter-bg.path-letter-bg-selected {
+  fill: black;
+}
+
+.path-letter {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.path-letter.path-letter-selected {
+  fill: white;
+}
+
+.element {
+  font-family: "Astronomicon", sans-serif;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.element-backing {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.element-backing.element-backing-selected {
+  fill: black;
+}
+
+.element.element-selected {
+  fill: white;
+}
+
+.planet-spiral {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.planet-filled {
+  fill: black;
+  stroke: none;
+}
+
+.planet-symbol {
+  font-family: "Astronomicon", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.planet-symbol.earth-symbol {
+  fill: white;
+}
+
+.planet-symbol.earth-symbol.earth-symbol-selected {
+  fill: black;
+}
+
+.planet-filled.planet-filled-selected {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.planet-backing {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.planet-backing.planet-backing-selected {
+  fill: black;
+}
+
+.planet-backing.planet-backing-modern {
+  stroke-dasharray: 4 2;
+}
+
+.planet-symbol.planet-symbol-selected {
+  fill: white;
+}
+
+.decan-segment {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.decan-segment.decan-segment-selected {
+  fill: black;
+}
+
+.zodiac-ring {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.zodiac-divider {
+  stroke: black;
+  stroke-width: 2;
+}
+
+.zodiac-segment {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.zodiac-segment.zodiac-segment-selected {
+  fill: black;
+}
+
+.zodiac-symbol {
+  font-family: "Astronomicon", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.zodiac-symbol.zodiac-symbol-selected {
+  fill: white;
+}
+
+.modality-symbol {
+  font-family: "Astronomicon", sans-serif;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modality-backing {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.modality-backing.modality-backing-selected {
+  fill: black;
+}
