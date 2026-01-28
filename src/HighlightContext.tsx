@@ -1,11 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useMemo,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useState, useCallback, useMemo } from "react";
+import type { ReactNode } from "react";
 import db from "./db.json";
 
 export type HighlightType =
