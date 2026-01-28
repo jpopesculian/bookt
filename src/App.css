@@ -28,6 +28,13 @@
   width: 100%;
 }
 
+.selected-name {
+  font-family: "Ancient", serif;
+  font-size: 24px;
+  fill: black;
+  pointer-events: none;
+}
+
 .tarot-trump-label {
   font-family: "Ancient", serif;
   font-size: 16px;

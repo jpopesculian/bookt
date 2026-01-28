@@ -3,6 +3,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useMemo,
   ReactNode,
 } from "react";
 import db from "./db.json";
@@ -24,6 +25,7 @@ export type HighlightItem = [HighlightType, number];
 
 type HighlightContextType = {
   selected: HighlightItem | null;
+  selectedName: string | undefined;
   highlighted: HighlightItem[];
   setSelected: (item: HighlightItem | null) => void;
 };
@@ -226,8 +228,59 @@ export function HighlightProvider({ children }: HighlightProviderProps) {
     }
   }, []);
 
+  const selectedName = useMemo(() => {
+    if (selected === null) return undefined;
+    const [type, index] = selected;
+    if (type === "element") {
+      return db.elements[index].name;
+    }
+    if (type === "sephirah") {
+      return db.sephiroth[index].name;
+    }
+    if (type === "modality") {
+      return db.modalities[index].name;
+    }
+    if (type === "zodiac") {
+      return db.zodiac[index].name;
+    }
+    if (type === "decan") {
+      return `Decan ${index + 1}`;
+    }
+    if (type === "planet") {
+      return db.planets[index].name;
+    }
+    if (type === "path") {
+      return db.paths[index].letter;
+    }
+    if (type === "suit") {
+      return db.suits[index].name;
+    }
+    if (type === "trump") {
+      return "Major Arcana";
+    }
+    if (type === "majorArcana") {
+      return db.majorArcana[index].name;
+    }
+    if (type === "minorArcana") {
+      const minorArcana = db.minorArcana[index];
+      const suitName = db.suits[minorArcana.suit].name;
+      if ("lord" in minorArcana) {
+        return `Lord of ${minorArcana.lord}`;
+      }
+      if ("pip" in minorArcana) {
+        const pipName = db.pips[minorArcana.pip as number].name;
+        return `${pipName} of ${suitName}`;
+      }
+      if ("court" in minorArcana) {
+        const courtName = db.court[minorArcana.court as number].name;
+        return `${courtName} of ${suitName}`;
+      }
+    }
+    return undefined;
+  }, [selected]);
+
   return (
-    <HighlightContext.Provider value={{ selected, highlighted, setSelected }}>
+    <HighlightContext.Provider value={{ selected, selectedName, highlighted, setSelected }}>
       {children}
     </HighlightContext.Provider>
   );

@@ -1,14 +1,14 @@
 import "./App.css";
 import Elements, { ELEMENTS_VIEWBOX } from "./Elements";
+import { useHighlight } from "./HighlightContext";
 import Planets, { PLANETS_LAYOUT } from "./Planets";
 import Tarot from "./Tarot";
 import TreeOfLife, { TREE_VIEWBOX } from "./TreeOfLife";
 
 function App() {
+  const { selectedName } = useHighlight();
   const diagramWidth =
-    ELEMENTS_VIEWBOX.width +
-    TREE_VIEWBOX.width +
-    PLANETS_LAYOUT.viewBoxWidth;
+    ELEMENTS_VIEWBOX.width + TREE_VIEWBOX.width + PLANETS_LAYOUT.viewBoxWidth;
   const baseHeight = Math.max(
     ELEMENTS_VIEWBOX.height,
     TREE_VIEWBOX.height,
@@ -44,6 +44,17 @@ function App() {
               height={tarotHeight}
             />
           ) : null}
+          {selectedName && (
+            <text
+              x={diagramWidth / 2}
+              y={(diagramHeight / 3) * 2 - 24}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              className="selected-name"
+            >
+              {selectedName}
+            </text>
+          )}
         </svg>
       </div>
     </div>

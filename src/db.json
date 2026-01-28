@@ -153,10 +153,10 @@
     { "name": "Pentacles", "element": 3 }
   ],
   "court": [
-    { "name": "Knight", "tetragrammaton": 0 },
+    { "name": "King", "tetragrammaton": 0 },
     { "name": "Queen", "tetragrammaton": 1 },
-    { "name": "Prince", "tetragrammaton": 2 },
-    { "name": "Princess", "tetragrammaton": 3 }
+    { "name": "Knight", "tetragrammaton": 2 },
+    { "name": "Page", "tetragrammaton": 3 }
   ],
   "pips": [
     { "name": "Ace", "sephirah": 0 },
@@ -181,10 +181,10 @@
     { "suit": 0, "pip": 7, "decan": 24, "lord": "Swiftness" },
     { "suit": 0, "pip": 8, "decan": 25, "lord": "Great Strength" },
     { "suit": 0, "pip": 9, "decan": 26, "lord": "Oppression" },
-    { "suit": 0, "court": 0 },
-    { "suit": 0, "court": 1 },
-    { "suit": 0, "court": 2 },
     { "suit": 0, "court": 3 },
+    { "suit": 0, "court": 2 },
+    { "suit": 0, "court": 1 },
+    { "suit": 0, "court": 0 },
     { "suit": 1, "pip": 0 },
     { "suit": 1, "pip": 1, "decan": 9, "lord": "Love" },
     { "suit": 1, "pip": 2, "decan": 10, "lord": "Abundance" },
@@ -195,10 +195,10 @@
     { "suit": 1, "pip": 7, "decan": 33, "lord": "Abandoned Success" },
     { "suit": 1, "pip": 8, "decan": 34, "lord": "Material Happiness" },
     { "suit": 1, "pip": 9, "decan": 35, "lord": "Perfected Success" },
-    { "suit": 1, "court": 0 },
-    { "suit": 1, "court": 1 },
-    { "suit": 1, "court": 2 },
     { "suit": 1, "court": 3 },
+    { "suit": 1, "court": 2 },
+    { "suit": 1, "court": 1 },
+    { "suit": 1, "court": 0 },
     { "suit": 2, "pip": 0 },
     { "suit": 2, "pip": 1, "decan": 18, "lord": "Peace Restored" },
     { "suit": 2, "pip": 2, "decan": 19, "lord": "Sorrow" },
@@ -209,10 +209,10 @@
     { "suit": 2, "pip": 7, "decan": 6, "lord": "Shortened Force" },
     { "suit": 2, "pip": 8, "decan": 7, "lord": "Despair and Cruelty" },
     { "suit": 2, "pip": 9, "decan": 8, "lord": "Ruin" },
-    { "suit": 2, "court": 0 },
-    { "suit": 2, "court": 1 },
-    { "suit": 2, "court": 2 },
     { "suit": 2, "court": 3 },
+    { "suit": 2, "court": 2 },
+    { "suit": 2, "court": 1 },
+    { "suit": 2, "court": 0 },
     { "suit": 3, "pip": 0 },
     { "suit": 3, "pip": 1, "decan": 27, "lord": "Harmonious Change" },
     { "suit": 3, "pip": 2, "decan": 28, "lord": "Material Works" },
@@ -223,9 +223,9 @@
     { "suit": 3, "pip": 7, "decan": 15, "lord": "Prudence" },
     { "suit": 3, "pip": 8, "decan": 16, "lord": "Material Gain" },
     { "suit": 3, "pip": 9, "decan": 17, "lord": "Wealth" },
-    { "suit": 3, "court": 0 },
-    { "suit": 3, "court": 1 },
+    { "suit": 3, "court": 3 },
     { "suit": 3, "court": 2 },
-    { "suit": 3, "court": 3 }
+    { "suit": 3, "court": 1 },
+    { "suit": 3, "court": 0 }
   ]
 }
