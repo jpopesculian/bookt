@@ -50,7 +50,6 @@ function TreeOfLife({ x = 0, y = 0 }: SvgOffsetProps) {
             key={i}
             onMouseEnter={() => setSelected(["path", i])}
             onMouseLeave={() => setSelected(null)}
-            onClick={() => console.log("click path", i, path)}
           >
             <line
               x1={from.x}
@@ -93,7 +92,6 @@ function TreeOfLife({ x = 0, y = 0 }: SvgOffsetProps) {
           className={`sephirah ${isSephirahHighlighted(i) ? "sephirah-selected" : ""}`}
           onMouseEnter={() => setSelected(["sephirah", i])}
           onMouseLeave={() => setSelected(null)}
-          onClick={() => console.log("click sephirah", i, db.sephiroth[i])}
         />
       ))}
     </svg>

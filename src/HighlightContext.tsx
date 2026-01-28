@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import db from "./db.json";
 
 export type HighlightType =
   | "element"
@@ -7,7 +14,11 @@ export type HighlightType =
   | "planet"
   | "decan"
   | "zodiac"
-  | "modality";
+  | "modality"
+  | "trump"
+  | "suit"
+  | "majorArcana"
+  | "minorArcana";
 
 export type HighlightItem = [HighlightType, number];
 
@@ -32,9 +43,186 @@ export function HighlightProvider({ children }: HighlightProviderProps) {
     if (item === null) {
       setHighlighted([]);
     } else {
-      // For now, just highlight the selected item
-      // This can be extended to compute related items based on db relationships
-      setHighlighted([item]);
+      const related: HighlightItem[] = [item];
+
+      // When an element is selected, highlight related zodiac signs, paths, suit, and court cards
+      if (item[0] === "element") {
+        const elementIndex = item[1];
+        db.zodiac.forEach((z, i) => {
+          if (z.element === elementIndex) {
+            related.push(["zodiac", i]);
+          }
+        });
+        db.paths.forEach((p, i) => {
+          if ("element" in p && p.element === elementIndex) {
+            related.push(["path", i]);
+          }
+        });
+        db.suits.forEach((s, i) => {
+          if (s.element === elementIndex) {
+            related.push(["suit", i]);
+          }
+        });
+        // Find court cards through tetragrammaton
+        db.tetragrammaton.forEach((t, tetIndex) => {
+          if (t.element === elementIndex) {
+            db.court.forEach((c, courtIndex) => {
+              if (c.tetragrammaton === tetIndex) {
+                db.minorArcana.forEach((m, i) => {
+                  if ("court" in m && m.court === courtIndex) {
+                    related.push(["minorArcana", i]);
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+
+      // When a zodiac is selected, highlight its element, modality, decans, and path
+      if (item[0] === "zodiac") {
+        const zodiacIndex = item[1];
+        const zodiac = db.zodiac[zodiacIndex];
+        related.push(["element", zodiac.element]);
+        related.push(["modality", zodiac.modality]);
+        db.decans.forEach((d, i) => {
+          if (d.zodiac === zodiacIndex) {
+            related.push(["decan", i]);
+          }
+        });
+        db.paths.forEach((p, i) => {
+          if ("zodiac" in p && p.zodiac === zodiacIndex) {
+            related.push(["path", i]);
+          }
+        });
+      }
+
+      // When a modality is selected, highlight related zodiac signs
+      if (item[0] === "modality") {
+        const modalityIndex = item[1];
+        db.zodiac.forEach((z, i) => {
+          if (z.modality === modalityIndex) {
+            related.push(["zodiac", i]);
+          }
+        });
+      }
+
+      // When a decan is selected, highlight its planet, zodiac, and minorArcana
+      if (item[0] === "decan") {
+        const decanIndex = item[1];
+        const decan = db.decans[decanIndex];
+        related.push(["planet", decan.planet]);
+        related.push(["zodiac", decan.zodiac]);
+        db.minorArcana.forEach((m, i) => {
+          if ("decan" in m && m.decan === decanIndex) {
+            related.push(["minorArcana", i]);
+          }
+        });
+      }
+
+      // When a planet is selected, highlight related decans, its sephirah, and path
+      if (item[0] === "planet") {
+        const planetIndex = item[1];
+        const planet = db.planets[planetIndex];
+        related.push(["sephirah", planet.sephirah]);
+        db.decans.forEach((d, i) => {
+          if (d.planet === planetIndex) {
+            related.push(["decan", i]);
+          }
+        });
+        db.paths.forEach((p, i) => {
+          if ("planet" in p && p.planet === planetIndex) {
+            related.push(["path", i]);
+          }
+        });
+      }
+
+      // When a sephirah is selected, highlight its planet, connected paths, and minorArcana
+      if (item[0] === "sephirah") {
+        const sephirahIndex = item[1];
+        db.planets.forEach((p, i) => {
+          if (p.sephirah === sephirahIndex) {
+            related.push(["planet", i]);
+          }
+        });
+        db.paths.forEach((p, i) => {
+          if (p.from === sephirahIndex || p.to === sephirahIndex) {
+            related.push(["path", i]);
+          }
+        });
+        // Find pips that map to this sephirah and highlight their minorArcana
+        db.pips.forEach((pip, pipIndex) => {
+          if (pip.sephirah === sephirahIndex) {
+            db.minorArcana.forEach((m, i) => {
+              if ("pip" in m && m.pip === pipIndex) {
+                related.push(["minorArcana", i]);
+              }
+            });
+          }
+        });
+      }
+
+      // When trump is selected, highlight all major arcana cards
+      if (item[0] === "trump") {
+        for (let i = 0; i < 22; i++) {
+          related.push(["majorArcana", i]);
+        }
+      }
+
+      // When a suit is selected, highlight its element and minor arcana cards
+      if (item[0] === "suit") {
+        const suitIndex = item[1];
+        const suit = db.suits[suitIndex];
+        related.push(["element", suit.element]);
+        // Each suit has 14 cards (A, 2-10, p, k, Q, K)
+        for (let i = 0; i < 14; i++) {
+          related.push(["minorArcana", suitIndex * 14 + i]);
+        }
+      }
+
+      // When a minorArcana is selected, highlight its suit, decan (if available), sephirah (if pip), and element (if court)
+      if (item[0] === "minorArcana") {
+        const suitIndex = Math.floor(item[1] / 14);
+        related.push(["suit", suitIndex]);
+        const minorArcana = db.minorArcana[item[1]];
+        if ("decan" in minorArcana) {
+          related.push(["decan", minorArcana.decan as number]);
+        }
+        if ("pip" in minorArcana) {
+          const pip = db.pips[minorArcana.pip as number];
+          related.push(["sephirah", pip.sephirah]);
+        }
+        if ("court" in minorArcana) {
+          const court = db.court[minorArcana.court as number];
+          const tetragrammaton = db.tetragrammaton[court.tetragrammaton];
+          related.push(["element", tetragrammaton.element]);
+        }
+      }
+
+      // When a majorArcana is selected, highlight the trump and its path
+      if (item[0] === "majorArcana") {
+        related.push(["trump", 0]);
+        related.push(["path", item[1]]);
+      }
+
+      // When a path is selected, highlight its sephiroth, majorArcana, and associated element/planet/zodiac
+      if (item[0] === "path") {
+        const path = db.paths[item[1]];
+        related.push(["sephirah", path.from]);
+        related.push(["sephirah", path.to]);
+        related.push(["majorArcana", item[1]]);
+        if ("element" in path) {
+          related.push(["element", path.element as number]);
+        }
+        if ("planet" in path) {
+          related.push(["planet", path.planet as number]);
+        }
+        if ("zodiac" in path) {
+          related.push(["zodiac", path.zodiac as number]);
+        }
+      }
+
+      setHighlighted(related);
     }
   }, []);
 

@@ -141,7 +141,7 @@ const modalityComponents: Record<string, React.FC<ModalitySymbolProps>> = {
   Mutable: MutableSymbol,
 };
 
-const PLANET_BASE_RADIUS = 10;
+const PLANET_BASE_RADIUS = 14;
 const PLANET_SPIRAL_SPACING = 18;
 const PLANET_SPIRAL_OFFSET = PLANET_SPIRAL_SPACING * 0.5;
 const PLANET_SPIRAL_TURNS = 2;
@@ -262,7 +262,6 @@ function Planets({ x = 0, y = 0 }: SvgOffsetProps) {
             key={i}
             onMouseEnter={() => setSelected(["modality", i])}
             onMouseLeave={() => setSelected(null)}
-            onClick={() => console.log("click modality", i, modality)}
             style={{ cursor: "pointer" }}
           >
             <ModalityComponent
@@ -311,14 +310,13 @@ function Planets({ x = 0, y = 0 }: SvgOffsetProps) {
             onMouseEnter={() => setSelected(["planet", planetIndex])}
             onMouseLeave={() => setSelected(null)}
           >
-            <circle cx={xPos} cy={yPos} r={10} className={backingClass} />
+            <circle cx={xPos} cy={yPos} r={14} className={backingClass} />
             <text
               x={xPos}
               y={yPos}
               className={`planet-symbol ${isHighlighted ? "planet-symbol-selected" : ""}`}
               textAnchor="middle"
               dominantBaseline="central"
-              onClick={() => console.log("click planet", i, planet)}
             >
               {planetSymbols[planet.name]}
             </text>
@@ -362,7 +360,6 @@ function Planets({ x = 0, y = 0 }: SvgOffsetProps) {
             className={`decan-segment ${isHighlighted ? "decan-segment-selected" : ""}`}
             onMouseEnter={() => setSelected(["decan", i])}
             onMouseLeave={() => setSelected(null)}
-            onClick={() => console.log("click decan", i, db.decans[i])}
           />
         );
       })}
@@ -434,7 +431,6 @@ function Planets({ x = 0, y = 0 }: SvgOffsetProps) {
             key={i}
             onMouseEnter={() => setSelected(["zodiac", i])}
             onMouseLeave={() => setSelected(null)}
-            onClick={() => console.log("click zodiac", i, zodiac)}
           >
             <path
               d={segmentPath}

@@ -44,7 +44,6 @@ function Elements({ x = 0, y = 0 }: SvgOffsetProps) {
             key={i}
             onMouseEnter={() => setSelected(["element", i])}
             onMouseLeave={() => setSelected(null)}
-            onClick={() => console.log("click element", i, element)}
           >
             <circle
               cx={25}

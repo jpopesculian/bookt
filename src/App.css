@@ -3,22 +3,87 @@
   src: url("./assets/Astronomicon.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Ancient";
+  src: url("./assets/Ancient-Medium.ttf") format("truetype");
+}
+
 .app {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background: white;
+  padding: 0 24px 24px 24px;
+  box-sizing: border-box;
 }
 
 .diagram {
-  height: 100vh;
-  width: 100vw;
+  height: calc(100vh - 48px);
+  width: calc(100vw - 48px);
 }
 
 .diagram > svg {
   height: 100%;
   width: 100%;
+}
+
+.tarot-trump-label {
+  font-family: "Ancient", serif;
+  font-size: 16px;
+  fill: black;
+}
+
+.tarot-trump {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.tarot-trump.tarot-trump-selected {
+  fill: black;
+}
+
+.tarot-trump-icon-selected {
+  filter: invert(1);
+}
+
+.tarot-suit {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.tarot-suit.tarot-suit-selected {
+  fill: black;
+}
+
+.tarot-suit-icon-selected {
+  filter: invert(1);
+}
+
+.tarot-card {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.tarot-card.tarot-card-selected {
+  fill: black;
+}
+
+.tarot-card-number {
+  font-family: "Ancient", serif;
+  font-size: 18px;
+  fill: black;
+}
+
+.tarot-card-number.tarot-card-number-selected {
+  fill: white;
+}
+
+.tarot-card-icon-selected {
+  filter: invert(1);
 }
 
 .sephirah {
